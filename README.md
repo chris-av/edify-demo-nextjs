@@ -54,7 +54,7 @@ export async function getServerSideProps() {
 
 ```
 
-A proper *backend*, however, is defined within the `pages/api` however. The code within this folder is equivalent to what might be written in a traditional backend framework, like `Express`. The default export take request and response arguments, and backend logic is implemented there, where a status and response is returned.
+A proper *backend*, however, is defined within the `pages/api`. The code within this folder is equivalent to what might be written in a traditional backend framework, like `Express`. The default export take request and response arguments, and backend logic is implemented there, where a status and response is returned.
 
 
 
