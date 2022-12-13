@@ -38,7 +38,6 @@ export const subregionOpts = [
   "Australia and New Zealand",
   "Melanesia",
   "Micronesia",
-  
 
 ];
 
