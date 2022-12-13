@@ -1,34 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Edify Demo - NextJS
 
-## Getting Started
 
-First, run the development server:
+This is my demo for the coding challenge. It is a simple search for countries using the [REST Countries API](https://restcountries.com/). 
+
+
+The list view is application when it is first loaded: a simple list of countries with their flags (plus a filter at the top to filter). The detail view can be accessed by clicking on the country.
+
+
+The Countries API is not directly accessed by the frontend, but rather by my backend code. Within the context of NextJS, the frontend consists of the code defined within the scope of the default page export.
+
+Backend code can be found within the `pages/api` folder. I interface with the api using a helper class defined in `utils/countries-api.ts`. My frontend code merely makes calls to my custom server, while my custom server is the one directly fetching resoures from the REST countries API.
+
+
+
+
+## Instructions
+This web application was built with NextJS. Therefore, you only need to install dependencies at the root of the project: 
+
 
 ```bash
-npm run dev
-# or
-yarn dev
+npm install    # for regular npm
+yarn install   # for yarn
+pnpm install   # for pnpm
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Notes
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Since NextJS is a framework for coupling both frontend and backend code, it can be at times confusing knowing which code is running on the server and what is running on the client. Below is a quick snippet of where code is run within a given page route.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```js
 
-## Learn More
+// /pages/index.js
 
-To learn more about Next.js, take a look at the following resources:
+export default function HomePage() {
+  // your frontend code here
+  useEffect(() => {
+    // fetching data here would mean fetching data from the client side
+  }, []);
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  return (
+    <div>...</div>
+  );
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+}
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+export async function getServerSideProps() {
+  // this is code that is run in the backend, in order to fetch data before the code reaches the client
+  // server side rendering: pre-render the html to minimize the amount of Javascript that is shipped to the client
+  // the window object does not exist here: therefore, we are in the backend
+}
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+
+A proper *backend*, however, is defined within the `pages/api` however. The code within this folder is equivalent to what might be written in a traditional backend framework, like `Express`. The default export take request and response arguments, and backend logic is implemented there, where a status and response is returned.
+
+
+
