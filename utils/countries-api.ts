@@ -13,7 +13,7 @@ export class CountriesAPI {
         'name', 'flags', 'flag',
         'ccn3', 'cca3', 'cioc',
         'capital', 'languages', 'latlng',
-        'region', 'subregion',
+        'region', 'subregion', 'continents',
       ].join(','),
     };
   }
