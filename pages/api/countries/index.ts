@@ -10,16 +10,17 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const region = req.query.region as string || '';
-    const subregion = req.query.subregion as string || '';
-    const continent = req.query.continents as string || '';
+    const url = new URL("http://" + req.headers.host + req.url);
+
+    const region = url.searchParams.get('region') || '';
+    const subregion = url.searchParams.get('subregion') || '';
+    const continent = url.searchParams.get('continent') || '';
     const filter : any = {};
     if (region !== undefined && region !== '') { filter.region = region; }
     if (subregion !== undefined && subregion !== '') { filter.subregion = subregion; }
     if (continent !== undefined && continent !== '') { filter.continent = continent; }
 
     let countries : ICountry[] = await api.getCountries();
-
 
     // filter all the countries 
     if (region !== '') {
