@@ -171,7 +171,8 @@ export default function Home({ countries } : PageProps) {
               name.official
             ) : (
               // find the first key and render the name of that country in that key's language
-              name.nativeName[lang_opts[0]].official
+              // there is ONE edge case where a country doesn't have a name for one of its registered formal languages
+              name.nativeName[lang_opts[0]]?.official || name.official
             )
             return (
               <div key={ccn3} className="flex justify-between items-center group border-y hover:bg-gray-100 pr-4 select-none h-[100px]">
