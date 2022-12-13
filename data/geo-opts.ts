@@ -1,7 +1,7 @@
 export const regionOpts = [
   "",
-  "Africa",
   "Americas",
+  "Africa",
   "Europe",
   "Asia",
   "Oceania",
@@ -10,37 +10,43 @@ export const regionOpts = [
 
 export const subregionOpts = [
   "",
+  "Northern Africa",
   "Western Africa",
+  "Eastern Africa",
+  "Southern Africa",
+  "Middle Africa",
+
+  "North America",
   "Caribbean",
   "South America",
-  "Northern Europe",
-  "Southern Asia",
-  "North America",
-  "Australia and New Zealand",
-  "Polynesia",
-  "Southeast Europe",
-  "Eastern Africa",
-  "South-Eastern Asia",
-  "Central Asia",
-  "Melanesia",
-  "Northern Africa",
   "Central America",
+
+  "Northern Europe",
+  "Western Europe",
+  "Central Europe",
+  "Southern Europe",
+  "Eastern Europe",
+  "Southeast Europe",
+
+  "Southern Asia",
+  "Polynesia",
+  "Central Asia",
   "Western Asia",
   "Eastern Asia",
-  "Southern Europe",
-  "Southern Africa",
-  "Eastern Europe",
+  "South-Eastern Asia",
+
+  "Australia and New Zealand",
+  "Melanesia",
   "Micronesia",
-  "Western Europe",
-  "Middle Africa",
-  "Central Europe"
+  
+
 ];
 
 export const continentOpts = [
   "",
-  "Africa",
   "North America",
   "South America",
+  "Africa",
   "Europe",
   "Asia",
   "Oceania",
