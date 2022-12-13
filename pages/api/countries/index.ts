@@ -12,13 +12,10 @@ export default async function handler(
   try {
     const url = new URL("http://" + req.headers.host + req.url);
 
+    const countryName = url.searchParams.get('country_name') || '';
     const region = url.searchParams.get('region') || '';
     const subregion = url.searchParams.get('subregion') || '';
     const continent = url.searchParams.get('continent') || '';
-    const filter : any = {};
-    if (region !== undefined && region !== '') { filter.region = region; }
-    if (subregion !== undefined && subregion !== '') { filter.subregion = subregion; }
-    if (continent !== undefined && continent !== '') { filter.continent = continent; }
 
     let countries : ICountry[] = await api.getCountries();
 
@@ -33,6 +30,10 @@ export default async function handler(
 
     if (continent !== '') {
       countries = countries.filter(country => country.continents.includes(continent));
+    }
+
+    if (countryName !== '') {
+      countries = countries.filter(country => country.name.common.includes(countryName));
     }
 
     const payload = countries.slice(0, 50);
