@@ -22,6 +22,8 @@ export default function Home({ countries } : PageProps) {
   const [ subRegionFilter, setSubRegionFilter ] = useState('');
   const [ continentFilter, setContinentFilter ] = useState('');
 
+  const [ filteredCountries, setFilteredCountries ] = useState(countries);
+
   const handleFilter = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'country-name') {
       setCountryNameFilter(event.target.value);
@@ -53,20 +55,44 @@ export default function Home({ countries } : PageProps) {
     event.preventDefault();
 
     // make request to api to get those countries that fit the filter
-    const payload = {
+    const filters = {
+      country_name: countryNameFilter,
       region: regionFilter,
       subregion: subRegionFilter,
       continent: continentFilter,
     }
 
+    const makeRequest = async () => {
+      const params = new URLSearchParams(filters)
+      const url = "/api/countries?" + params
+      const response = await fetch(url);
+
+      if (response.status !== 200) {
+        console.log({
+          message: 'something went wrong with the request',
+          params: params,
+          url: url
+        });
+        return;
+      }
+
+      const data = await response.json();
+      console.log({ data });
+      setFilteredCountries(data.countries);
+
+      
+    }
+
     // make request to our backend
-    console.log({ payload });
+    makeRequest();
 
     return;
 
   }
 
   const resetFilters = () => {
+    setFilteredCountries(countries);
+    setCountryNameFilter('');
     setRegionFilter('');
     setSubRegionFilter('');
     setContinentFilter('');
@@ -137,8 +163,16 @@ export default function Home({ countries } : PageProps) {
         <h2 className="mb-3">Select a country for a detailed view</h2>
 
         <div>
-          { countries.map(({ ccn3, name, flags, languages }) => {
-            const primaryLanguage = Object.keys(languages)[0];
+          { filteredCountries.map(({ ccn3, name, flags, languages }) => {
+            const lang_opts = Object.keys(languages);
+            const displayFormalName = lang_opts.length === 0 ? (
+              // simply return the official name
+              // most likely Antarctica: doesn't have formal language
+              name.official
+            ) : (
+              // find the first key and render the name of that country in that key's language
+              name.nativeName[lang_opts[0]].official
+            )
             return (
               <div key={ccn3} className="flex justify-between items-center group border-y hover:bg-gray-100 pr-4 select-none h-[100px]">
                 <Link href={`/countries/${ccn3}`} className="flex justify-start items-center cursor-pointer w-[80%] select-none">
@@ -152,7 +186,7 @@ export default function Home({ countries } : PageProps) {
                   </div>
                   <h3>{name.common}</h3>
                 </Link>
-                <div className="opacity-0 group-hover:opacity-20 transition-opacity ease-in select-none flex justify-end items-center w-[20%] h-full">{name.nativeName[primaryLanguage].official}</div>
+                <div className="opacity-0 group-hover:opacity-20 transition-opacity ease-in select-none flex justify-end items-center w-[20%] h-full">{displayFormalName}</div>
               </div>
             )})
           }
