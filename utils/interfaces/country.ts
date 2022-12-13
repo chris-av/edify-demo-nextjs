@@ -107,6 +107,9 @@ export interface ICountry {
   cioc: string;
   independent: boolean
   status: string;
+  region: string;
+  subregion: string;
+  continents: string[];
   flags: {
     png: string;
     svg: string;
