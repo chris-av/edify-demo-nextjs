@@ -124,7 +124,7 @@ export default function Home({ countries } : PageProps) {
             />
           </div>
 
-          <div className="flex items-center px-3 h-16">
+          <div className="flex justify-between items-center px-3 h-16 max-w-[450px]">
             <label className="mr-6">Select Continent</label>
             <Dropdown 
               name="continent"
@@ -134,7 +134,7 @@ export default function Home({ countries } : PageProps) {
             />
           </div>
 
-          <div className="flex items-center px-3 h-16">
+          <div className="flex justify-between items-center px-3 h-16 max-w-[450px]">
             <label className="mr-6">Select Region</label>
             <Dropdown 
               name="region"
@@ -144,7 +144,7 @@ export default function Home({ countries } : PageProps) {
             />
           </div>
 
-          <div className="flex items-center px-3 h-16">
+          <div className="flex justify-between items-center px-3 h-16 max-w-[450px]">
             <label className="mr-6">Select Subregion</label>
             <Dropdown 
               name="subregion"
