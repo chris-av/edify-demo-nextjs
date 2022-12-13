@@ -176,12 +176,12 @@ export default function Home({ countries } : PageProps) {
             return (
               <div key={ccn3} className="flex justify-between items-center group border-y hover:bg-gray-100 pr-4 select-none h-[100px]">
                 <Link href={`/countries/${ccn3}`} className="flex justify-start items-center cursor-pointer w-[80%] select-none">
-                  <div className="relative my-2 mr-4 select-none">
+                  <div className="relative my-2 mr-4 select-none w-[140px] h-[80px]">
                     <Image 
                       alt={name.common} 
                       src={flags.svg} 
-                      width={120}
-                      height={90}
+                      fill
+                      sizes="(max-width:700px) 100%"
                     />
                   </div>
                   <h3>{name.common}</h3>
