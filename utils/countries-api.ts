@@ -76,12 +76,33 @@ export class CountriesAPI {
   }
 
   async getCountryById(id: string) {
-    return;
+
+    const params = new URLSearchParams({
+      fields: [
+        this.params.fields,
+        'coatOfArms', 'population',
+        'independent', 'status',
+      ]
+    } as any);
+
+    if (!id) {
+      throw new Error('need to provide id for this route');
+    }
+
+    const response = await fetch(this.baseURL + `alpha/${id}?${params.toString()}`);
+    const data = response.json();
+
+    if (response.status !== 200) {
+      throw new Error('got unexpected status', { cause: { status: response.status, data } });
+    }
+
+    return data;
+
   }
 
-  async getCountryByName(name: string) {
-    return;
-  }
+  // async getCountryByName(name: string) {
+  //   return;
+  // }
 
 
 }
